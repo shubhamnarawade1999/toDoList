@@ -73,8 +73,7 @@ export class AppComponent implements OnInit {
 
 
   toggleSelectAll() {
-    this.selectAll = !this.selectAll; // Toggle main checkbox state
-    // Set each task's selected state based on the main checkbox
+    this.selectAll = !this.selectAll; 
     this.savedTasks.forEach(task => task.selected = this.selectAll);
 }
   
@@ -91,7 +90,7 @@ export class AppComponent implements OnInit {
   onDelete(index: number) {
     this.savedTasks.splice(index, 1);
     localStorage.setItem('taskArray', JSON.stringify(this.savedTasks));
-    console.log('Task deleted successfully!');
+   alert('Task deleted successfully!');
     this.updatePagination(); 
   }
 
@@ -143,7 +142,7 @@ export class AppComponent implements OnInit {
     this.savedTasks = []; 
     localStorage.removeItem('taskArray'); 
     this.updatePagination(); 
-    console.log('All tasks deleted successfully!');
+    alert('All tasks deleted successfully!');
   }
   
  
