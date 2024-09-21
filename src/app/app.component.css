@@ -77,10 +77,19 @@
                     width: 100%;
                 }
             }
-            .search-input {
-                padding: 8px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
+            .search {
+                position: relative;
+                .search-input {
+                    padding: 8px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                   
+                }
+                i{
+                    position: absolute;
+                    right: 7px;
+                    top: 10px;
+                }
             }
         }
     }
@@ -197,12 +206,18 @@
         form {
             .form-group {
                 margin-bottom: 10px;
+                position: relative;
                 .form-label {
                     margin-bottom: 4px;
                 }
+                i {
+                    position: absolute;
+                    right: 11px;
+                    top: 36px;
+                }
 
                 .form-control {
-                    &:focus{
+                    &:focus {
                         box-shadow: none;
                     }
                 }
@@ -211,7 +226,6 @@
     }
 
     .modal-footer {
-
         .btn-success {
             background-color: #28a745;
             border: none;
@@ -226,24 +240,67 @@
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .task-header {
-        flex-direction: column;
+        /* flex-direction: column; */
         align-items: flex-start;
+
+        .task-header-left {
+            width: 100%;
+            margin-top: 10px;
+
+            .btn-wrapper {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+        }
     }
 
-    .task-header .btn-new-task,
-    .task-header .btn-refresh {
+    .search-input {
+        width: 100%;
         margin-top: 10px;
     }
 
-    .task-table th,
-    .task-table td {
-        padding: 8px;
+    .task-table {
+        font-size: 14px;
     }
 
-    .pagination {
+    .pagination-container {
         flex-direction: column;
         align-items: flex-start;
+
+        .pagination-controls {
+            margin-top: 10px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .task-header {
+        .txt h3 {
+            font-size: 18px;
+        }
+        .txt p {
+            font-size: 14px;
+        }
+    }
+
+    .btn-new-task,
+    .btn-refresh {
+        width: 100%;
+        padding: 6px 10px;
+    }
+
+    .pagination-controls button {
+        padding: 4px 8px;
+    }
+
+    .modal-title {
+        font-size: 18px;
+    }
+
+    .modal-body {
+        padding: 0 10px;
     }
 }

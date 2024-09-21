@@ -11,3 +11,10 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
 }
+
+
+@media (max-width: 768px) {
+    .container{
+        min-width: 545px;
+    }
+}

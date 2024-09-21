@@ -21,8 +21,7 @@ export class AppComponent implements OnInit {
   itemsPerPage: number = 3; 
   totalPages: number = 1;
   selectAll: boolean = false;
-  editIndex: number | null = null; // Add this line to track the index being edited
-
+  editIndex: number | null = null; 
   constructor(private modalService: NgbModal, private formbuilder: FormBuilder) {}
 
   ngOnInit(): void {
@@ -41,8 +40,12 @@ export class AppComponent implements OnInit {
     this.updatePagination();
   }
 
-  openModel(content: any) {
+  openModel(content: any,  isNewTask: boolean) {
     this.modalService.open(content);
+    if (isNewTask) {
+      this.taskForm.reset(); 
+  }
+
   }
 
   save() {
@@ -68,6 +71,13 @@ export class AppComponent implements OnInit {
     this.editIndex = null;
   }
 
+
+  toggleSelectAll() {
+    this.selectAll = !this.selectAll; // Toggle main checkbox state
+    // Set each task's selected state based on the main checkbox
+    this.savedTasks.forEach(task => task.selected = this.selectAll);
+}
+  
   toggleButtons(index: number) {
     this.expandedRowIndex = this.expandedRowIndex === index ? null : index;
   }
@@ -75,7 +85,7 @@ export class AppComponent implements OnInit {
     this.editIndex = index;
     const task = this.savedTasks[index];
     this.taskForm.patchValue(task); 
-    this.openModel(content); 
+    this.openModel(content,false); 
   }
 
   onDelete(index: number) {
@@ -138,4 +148,3 @@ export class AppComponent implements OnInit {
   
  
 }
-  
