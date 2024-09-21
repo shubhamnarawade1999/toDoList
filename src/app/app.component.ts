@@ -16,13 +16,14 @@ export class AppComponent implements OnInit {
   savedTasks: any[] = [];
   expandedRowIndex: number | null = null;
   savedTaskslength: number = 0;
-  visibleTasks: any[] = [];  
+  visibleTasks: any[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 3; 
+  itemsPerPage: number = 3;
   totalPages: number = 1;
   selectAll: boolean = false;
-  editIndex: number | null = null; 
-  constructor(private modalService: NgbModal, private formbuilder: FormBuilder) {}
+  editIndex: number | null = null;
+  isUpdate: boolean = false;
+  constructor(private modalService: NgbModal, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.taskForm = this.formbuilder.group({
@@ -40,11 +41,11 @@ export class AppComponent implements OnInit {
     this.updatePagination();
   }
 
-  openModel(content: any,  isNewTask: boolean) {
+  openModel(content: any, isNewTask: boolean) {
     this.modalService.open(content);
     if (isNewTask) {
-      this.taskForm.reset(); 
-  }
+      this.taskForm.reset();
+    }
 
   }
 
@@ -52,7 +53,7 @@ export class AppComponent implements OnInit {
     if (this.taskForm.valid) {
       if (this.editIndex !== null) {
         this.savedTasks[this.editIndex] = this.taskForm.value;
-        this.editIndex = null; 
+        this.editIndex = null;
       } else {
         this.savedTasks.push(this.taskForm.value);
       }
@@ -60,38 +61,39 @@ export class AppComponent implements OnInit {
       localStorage.setItem('taskArray', JSON.stringify(this.savedTasks));
       this.taskForm.reset();
       this.modalService.dismissAll();
-      this.updatePagination(); 
+      this.updatePagination();
     } else {
       console.log('Form is invalid');
     }
   }
-
   cancel() {
     this.taskForm.reset();
     this.editIndex = null;
   }
-
-
   toggleSelectAll() {
-    this.selectAll = !this.selectAll; 
+    this.selectAll = !this.selectAll;
     this.savedTasks.forEach(task => task.selected = this.selectAll);
-}
-  
+  }
   toggleButtons(index: number) {
     this.expandedRowIndex = this.expandedRowIndex === index ? null : index;
   }
   onEdit(index: number, content: any) {
     this.editIndex = index;
+    debugger
     const task = this.savedTasks[index];
-    this.taskForm.patchValue(task); 
-    this.openModel(content,false); 
+    this.taskForm.patchValue(task);
+    this.openModel(content, false);
+
+    if (task.status === "Completed") {
+      this.isUpdate = true;
+    }
   }
 
   onDelete(index: number) {
     this.savedTasks.splice(index, 1);
     localStorage.setItem('taskArray', JSON.stringify(this.savedTasks));
-   alert('Task deleted successfully!');
-    this.updatePagination(); 
+    alert('Task deleted successfully!');
+    this.updatePagination();
   }
 
   updatePagination() {
@@ -124,7 +126,7 @@ export class AppComponent implements OnInit {
   }
 
   onItemsPerPageChange(event: any) {
-    this.itemsPerPage = +event.target.value; 
+    this.itemsPerPage = +event.target.value;
     this.updatePagination();
   }
 
@@ -139,11 +141,11 @@ export class AppComponent implements OnInit {
   }
 
   refresh() {
-    this.savedTasks = []; 
-    localStorage.removeItem('taskArray'); 
-    this.updatePagination(); 
+    this.savedTasks = [];
+    localStorage.removeItem('taskArray');
+    this.updatePagination();
     alert('All tasks deleted successfully!');
   }
-  
- 
+
+
 }

@@ -30,38 +30,7 @@
 
         </div>
       </div>
-      <!-- <table class="task-table">
-        <thead>
-          <tr>
-            <th><input type="checkbox"></th>
-            <th>Assigned To</th>
-            <th>Status</th>
-            <th>Due Date</th>
-            <th>Priority</th>
-            <th>Comments</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of visibleTasks; let i = index">
-            <td><input type="checkbox" ></td>
-            <td>{{data.assignedTo}}</td>
-            <td>{{data.status}}</td>
-            <td>{{data.dueDate}}</td>
-            <td>{{data.priority}}</td>
-            <td>{{data.description}}</td>
-            <td *ngIf="expandedRowIndex !== i">
-              <i class="bi bi-chevron-down" (click)="toggleButtons(i)"></i>
-            </td>
-            <td *ngIf="expandedRowIndex === i">
-              <div style="gap: 10px; display: flex;">
-                <button (click)="onEdit(i,content)">Edit</button>
-                <button (click)="onDelete(i)">Delete</button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table> -->
+      
       
      
      
@@ -129,7 +98,7 @@
   <ng-template #content let-modal>
     <div class="section-model">
       <div class="modal-header">
-        <h4 class="modal-title">New Task</h4>
+        <h4 class="modal-title">{{ isUpdate ? 'Update Task' : 'New Task' }}</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
       </div>
       <div class="modal-body">
