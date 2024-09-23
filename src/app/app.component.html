@@ -24,55 +24,56 @@
             <button class="btn-refresh" (click)="refresh()">Refresh</button>
           </div>
           <div class="search">
-            <input type="text" class="search-input" placeholder="Search" [(ngModel)]="searchQuery" (input)="filterTasks()">
+            <input type="text" class="search-input" placeholder="Search" [(ngModel)]="searchQuery"
+              (input)="filterTasks()">
             <i class="bi bi-search"></i>
           </div>
 
         </div>
       </div>
-      
-      
-     
-     
+
+
+
+
       <table class="task-table">
         <thead>
-            <tr>
-                <th>
-                    <input type="checkbox" [checked]="selectAll" (change)="toggleSelectAll()">
-                </th>
-                <th>Assigned To</th>
-                <th>Status</th>
-                <th>Due Date</th>
-                <th>Priority</th>
-                <th>Comments</th>
-                <th></th>
-            </tr>
+          <tr>
+            <th>
+              <input type="checkbox" [checked]="selectAll" (change)="toggleSelectAll()">
+            </th>
+            <th>Assigned To</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Priority</th>
+            <th>Comments</th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let data of visibleTasks; let i = index">
-                <td>
-                    <input type="checkbox" [(ngModel)]="data.selected"> <!-- Bind individual checkboxes -->
-                </td>
-                <td>{{data.assignedTo}}</td>
-                <td>{{data.status}}</td>
-                <td>{{data.dueDate}}</td>
-                <td>{{data.priority}}</td>
-                <td>{{data.description}}</td>
-                <td *ngIf="expandedRowIndex !== i">
-                    <i class="bi bi-chevron-down" (click)="toggleButtons(i)"></i>
-                </td>
-                <td *ngIf="expandedRowIndex === i">
-                    <div style="gap: 10px; display: flex;">
-                        <button (click)="onEdit(i, content)">Edit</button>
-                        <button (click)="onDelete(i)">Delete</button>
-                    </div>
-                </td>
-            </tr>
+          <tr *ngFor="let data of visibleTasks; let i = index">
+            <td>
+              <input type="checkbox" [(ngModel)]="data.selected"> <!-- Bind individual checkboxes -->
+            </td>
+            <td>{{data.assignedTo}}</td>
+            <td>{{data.status}}</td>
+            <td>{{data.dueDate}}</td>
+            <td>{{data.priority}}</td>
+            <td>{{data.description}}</td>
+            <td *ngIf="expandedRowIndex !== i">
+              <i class="bi bi-chevron-down" (click)="toggleButtons(i)"></i>
+            </td>
+            <td *ngIf="expandedRowIndex === i">
+              <div style="gap: 10px; display: flex;">
+                <button (click)="onEdit(i, content)">Edit</button>
+                <button (click)="onDelete(i)">Delete</button>
+              </div>
+            </td>
+          </tr>
         </tbody>
-    </table>
-    
-     
-     
+      </table>
+
+
+
       <div class="pagination-container">
         <div class="items-per-page">
           <select (change)="onItemsPerPageChange($event)">
@@ -82,13 +83,16 @@
             <option value="5">5</option>
           </select>
         </div>
-      
+
         <div class="pagination-controls">
-          <button (click)="firstPage()" [disabled]="currentPage === 1"><i class="bi bi-chevron-double-up"></i> First</button>
+          <button (click)="firstPage()" [disabled]="currentPage === 1"><i class="bi bi-chevron-double-up"></i>
+            First</button>
           <button (click)="prevPage()" [disabled]="currentPage === 1"><i class="bi bi-chevron-left"></i> Prev</button>
           <span class="current-page">{{currentPage}} / {{totalPages}}</span>
-          <button (click)="nextPage()" [disabled]="currentPage === totalPages"><i class="bi bi-chevron-right"></i> Next</button>
-          <button (click)="lastPage()" [disabled]="currentPage === totalPages"><i class="bi bi-chevron-double-down"></i> Last</button>
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages"><i class="bi bi-chevron-right"></i>
+            Next</button>
+          <button (click)="lastPage()" [disabled]="currentPage === totalPages"><i class="bi bi-chevron-double-down"></i>
+            Last</button>
         </div>
       </div>
     </div>
@@ -128,8 +132,7 @@
                   <option>Completed</option>
                 </select>
                 <i class="bi bi-caret-down-fill"></i>
-                <div *ngIf="taskForm.get('status')?.invalid && taskForm.get('status')?.touched"
-                  class="text-danger">
+                <div *ngIf="taskForm.get('status')?.invalid && taskForm.get('status')?.touched" class="text-danger">
                   <div *ngIf="taskForm.get('status')?.errors?.['required']">
                     Please Select status</div>
                 </div>
@@ -153,8 +156,7 @@
                   <option>High</option>
                 </select>
                 <i class="bi bi-caret-down-fill"></i>
-                <div *ngIf="taskForm.get('priority')?.invalid && taskForm.get('priority')?.touched"
-                  class="text-danger">
+                <div *ngIf="taskForm.get('priority')?.invalid && taskForm.get('priority')?.touched" class="text-danger">
                   <div *ngIf="taskForm.get('priority')?.errors?.['required']">Please Select priority</div>
                 </div>
               </div>
@@ -177,6 +179,22 @@
   </ng-template>
 
 
+
+  <!-- <ng-template #deleteContent let-modal>
+  <div class="section-modeldelete">
+    <div class="modal-header">
+      <h2>Delete</h2>      
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>Do you want to delete task task.name?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn no-btn" (click)="modal.dismiss('Cross click')">No</button>
+    <button class="btn yes-btn" (click)=" onDelete(i)">Yes</button>
+    </div>
+  </div>
+</ng-template> -->
 
 
 </body>

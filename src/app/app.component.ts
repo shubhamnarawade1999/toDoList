@@ -80,7 +80,6 @@ export class AppComponent implements OnInit {
   }
   onEdit(index: number, content: any) {
     this.editIndex = index;
-    debugger
     const task = this.savedTasks[index];
     this.taskForm.patchValue(task);
     this.openModel(content, false);
@@ -89,20 +88,33 @@ export class AppComponent implements OnInit {
       this.isUpdate = true;
     }
   }
-
+ 
+ 
   onDelete(index: number) {
     this.savedTasks.splice(index, 1);
     localStorage.setItem('taskArray', JSON.stringify(this.savedTasks));
     alert('Task deleted successfully!');
+ 
     this.updatePagination();
   }
 
   updatePagination() {
+    // this.totalPages = Math.ceil(this.savedTasks.length / this.itemsPerPage);
+    // this.currentPage = Math.min(this.currentPage, this.totalPages);
+    // const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    // const endIndex = startIndex + this.itemsPerPage;
+    // this.visibleTasks = this.savedTasks.slice(startIndex, endIndex);
+
     this.totalPages = Math.ceil(this.savedTasks.length / this.itemsPerPage);
     this.currentPage = Math.min(this.currentPage, this.totalPages);
+    if (this.currentPage < 1) {
+      this.currentPage = 1;
+    }
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.visibleTasks = this.savedTasks.slice(startIndex, endIndex);
+  
+    console.log('Visible Tasks:', this.visibleTasks);
   }
 
   changePage(page: number) {
