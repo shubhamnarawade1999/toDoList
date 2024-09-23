@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   editIndex: number | null = null;
   isUpdate: boolean = false;
   searchQuery: string = '';
+  deletedData: any;
   constructor(private modalService: NgbModal, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -88,23 +89,21 @@ export class AppComponent implements OnInit {
       this.isUpdate = true;
     }
   }
- 
- 
+
+  onDeleteopen(deleteContent: any) {
+    this.modalService.open(deleteContent);
+  }
+
   onDelete(index: number) {
+    debugger
     this.savedTasks.splice(index, 1);
     localStorage.setItem('taskArray', JSON.stringify(this.savedTasks));
-    alert('Task deleted successfully!');
- 
+    this.deletedData = index
     this.updatePagination();
+    this.modalService.dismissAll();
   }
 
   updatePagination() {
-    // this.totalPages = Math.ceil(this.savedTasks.length / this.itemsPerPage);
-    // this.currentPage = Math.min(this.currentPage, this.totalPages);
-    // const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    // const endIndex = startIndex + this.itemsPerPage;
-    // this.visibleTasks = this.savedTasks.slice(startIndex, endIndex);
-
     this.totalPages = Math.ceil(this.savedTasks.length / this.itemsPerPage);
     this.currentPage = Math.min(this.currentPage, this.totalPages);
     if (this.currentPage < 1) {
@@ -113,7 +112,7 @@ export class AppComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.visibleTasks = this.savedTasks.slice(startIndex, endIndex);
-  
+
     console.log('Visible Tasks:', this.visibleTasks);
   }
 
@@ -159,10 +158,10 @@ export class AppComponent implements OnInit {
     this.updatePagination();
     alert('All tasks deleted successfully!');
   }
- 
+
   filterTasks() {
     if (this.searchQuery) {
-      this.visibleTasks = this.savedTasks.filter(task => 
+      this.visibleTasks = this.savedTasks.filter(task =>
         task.assignedTo.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
         task.status.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
         task.priority.toLowerCase().includes(this.searchQuery.toLowerCase()) ||

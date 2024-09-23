@@ -65,7 +65,7 @@
             <td *ngIf="expandedRowIndex === i">
               <div style="gap: 10px; display: flex;">
                 <button (click)="onEdit(i, content)">Edit</button>
-                <button (click)="onDelete(i)">Delete</button>
+                <button (click)="onDeleteopen(deleteContent)">Delete</button>
               </div>
             </td>
           </tr>
@@ -172,7 +172,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">Cancel</button>
         <button type="button" class="btn btn-secondary" (click)="save()">Save</button>
       </div>
     </div>
@@ -180,21 +180,25 @@
 
 
 
-  <!-- <ng-template #deleteContent let-modal>
-  <div class="section-modeldelete">
-    <div class="modal-header">
-      <h2>Delete</h2>      
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+
+
+
+
+  <ng-template #deleteContent let-modal>
+    <div class="section-modeldelete" [(ngModel)]="deletedData">
+      <div class="modal-header">
+        <h2>Delete</h2>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <p>Do you want to delete task?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn no-btn" (click)="modal.dismiss('Cross click')">No</button>
+        <button class="btn yes-btn" (click)=" onDelete(deletedData)" >Yes</button>
+      </div>
     </div>
-    <div class="modal-body">
-        <p>Do you want to delete task task.name?</p>
-    </div>
-    <div class="modal-footer">
-      <button class="btn no-btn" (click)="modal.dismiss('Cross click')">No</button>
-    <button class="btn yes-btn" (click)=" onDelete(i)">Yes</button>
-    </div>
-  </div>
-</ng-template> -->
+  </ng-template>
 
 
 </body>
