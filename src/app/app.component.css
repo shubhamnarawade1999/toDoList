@@ -255,6 +255,31 @@
                 width: 100%;
             }
         }
+
+        .nav-menu {
+            width: 100%;            
+        }
+    }
+
+
+    .task-container {    
+        .task-header {
+            .task-header-left {                
+                .search {
+                    i{
+                        position: absolute;
+                        right:11px;
+                        top: 20px;
+                    }
+                }
+            }
+        }
+    
+       
+    
+        
+    
+       
     }
 
     .search-input {
@@ -267,7 +292,7 @@
     }
 
     .pagination-container {
-        flex-direction: column;
+        /* flex-direction: column; */
         align-items: flex-start;
 
         .pagination-controls {
