@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   selectAll: boolean = false;
   editIndex: number | null = null;
   isUpdate: boolean = false;
+  searchQuery: string = '';
   constructor(private modalService: NgbModal, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -146,6 +147,18 @@ export class AppComponent implements OnInit {
     this.updatePagination();
     alert('All tasks deleted successfully!');
   }
-
-
+ 
+  filterTasks() {
+    if (this.searchQuery) {
+      this.visibleTasks = this.savedTasks.filter(task => 
+        task.assignedTo.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        task.status.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        task.priority.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        (task.description && task.description.toLowerCase().includes(this.searchQuery.toLowerCase())) ||
+        (task.dueDate && task.dueDate.includes(this.searchQuery)) // You can adjust this for specific date formats
+      );
+    } else {
+      this.updatePagination(); // Reset if the search query is empty
+    }
+  }
 }

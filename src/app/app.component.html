@@ -24,7 +24,7 @@
             <button class="btn-refresh" (click)="refresh()">Refresh</button>
           </div>
           <div class="search">
-            <input type="text" class="search-input" placeholder="Search">
+            <input type="text" class="search-input" placeholder="Search" [(ngModel)]="searchQuery" (input)="filterTasks()">
             <i class="bi bi-search"></i>
           </div>
 
