@@ -166,10 +166,10 @@ export class AppComponent implements OnInit {
         task.status.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
         task.priority.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
         (task.description && task.description.toLowerCase().includes(this.searchQuery.toLowerCase())) ||
-        (task.dueDate && task.dueDate.includes(this.searchQuery)) // You can adjust this for specific date formats
+        (task.dueDate && task.dueDate.includes(this.searchQuery)) 
       );
     } else {
-      this.updatePagination(); // Reset if the search query is empty
+      this.updatePagination(); 
     }
   }
 }
